@@ -9,6 +9,9 @@ import requests
 import pandas as pd
 from collections import defaultdict
 
+BOT_TOKEN = "7030473521:AAH0u8dncHQt56OvOmAFHSCnFcfsUS1kg6Q"
+CHAT_ID = "6497913625"
+
 API_KEY = "02789bfe844131dad1922e45a9930597"
 REGION = "eu"
 MARKET = "h2h"
@@ -98,6 +101,23 @@ for ligue, sport_key in SPORTS.items():
                     best_odds_dict[match][team] = odds[team]
 
     surebet_rows = calculate_surebets(best_odds_dict)
+    if surebet_rows:
+    message = f"🎯 <b>Surebets détectés !</b>\n\n"
+    message += f"🏆 Compétition : <b>{ligue}</b>\n\n"  # Ajout du nom de la ligue
+
+    for row in surebet_rows:
+        match, cote1, book1, coteN, bookN, cote2, book2, inv_total = row
+        message += (
+            f"⚽ <b>{match}</b>\n"
+            f"1️⃣ {cote1} (@{book1})\n"
+            f"➖ {coteN} (@{bookN})\n"
+            f"2️⃣ {cote2} (@{book2})\n"
+            f"🧮 Inverse total : <b>{inv_total}</b>\n"
+            f"--------------------------------------\n"
+        )
+
+    send_telegram_message(message, BOT_TOKEN, CHAT_ID)
+
     all_rows.extend(surebet_rows)
 
 # Enregistrement
@@ -108,5 +128,18 @@ df = pd.DataFrame(all_rows, columns=[
     "Cote 2", "Bookmaker 2",
     "Inverse total"
 ])
-df.to_csv("cotes_surebets.csv", index=False)
-print(f"\n{len(df)} matchs avec opportunité de surebet enregistrés dans 'cotes_surebets.csv'.")
+
+def send_telegram_message(message, bot_token, chat_id):
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": message,
+        "parse_mode": "HTML"
+    }
+    try:
+        response = requests.post(url, data=payload)
+        if response.status_code != 200:
+            print(f"Erreur Telegram: {response.text}")
+    except Exception as e:
+        print(f"Exception Telegram: {e}")
+
