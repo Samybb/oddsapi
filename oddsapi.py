@@ -8,11 +8,17 @@ Created on Mon Apr 21 14:49:05 2025
 import requests
 import pandas as pd
 from collections import defaultdict
+import os
 
-BOT_TOKEN = "7030473521:AAH0u8dncHQt56OvOmAFHSCnFcfsUS1kg6Q"
-CHAT_ID = "6497913625"
+# Récupérer les valeurs depuis les variables d'environnement
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+API_KEY = os.getenv("API_KEY")
 
-API_KEY = "02789bfe844131dad1922e45a9930597"
+# Vérifier si les variables ont bien été récupérées (c'est important pour éviter des erreurs)
+if not BOT_TOKEN or not CHAT_ID or not API_KEY:
+    raise ValueError("Un ou plusieurs secrets manquent dans l'environnement!")
+
 REGION = "eu"
 MARKET = "h2h"
 SPORTS = {
