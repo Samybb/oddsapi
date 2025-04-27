@@ -108,8 +108,8 @@ for ligue, sport_key in SPORTS.items():
 
     surebet_rows = calculate_surebets(best_odds_dict)
     if surebet_rows:
-    message = f"🎯 <b>Surebets détectés !</b>\n\n"
-    message += f"🏆 Compétition : <b>{ligue}</b>\n\n"  # Ajout du nom de la ligue
+        message = f"🎯 <b>Surebets détectés !</b>\n\n"
+        message += f"🏆 Compétition : <b>{ligue}</b>\n\n"  # Ajout du nom de la ligue
 
     for row in surebet_rows:
         match, cote1, book1, coteN, bookN, cote2, book2, inv_total = row
