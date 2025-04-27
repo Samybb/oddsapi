@@ -18,14 +18,13 @@ SPORTS = {
     "La Liga": "soccer_spain_la_liga",
     "Serie A": "soccer_italy_serie_a",
     "Bundesliga": "soccer_germany_bundesliga"
+    "Champions league": "soccer_uefa_champs_league"
+    "Europa league": "soccer_uefa_europa_league"
+    "FA cup": "soccer_fa_cup"
 }
 
 # Liste des bookmakers souhaités (en minuscules pour comparaison)
-BOOKMAKERS_DESIRES = [
-    "1xbet", "betonlineag", "betclic", "betfair", "betsson", "coolbet", "everygame", "gtbets",
-    "marathonbet", "matchbook", "nordicbet", "pinnacle", "suprabets", "tipico",
-    "unibet", "williamhill", "winamaxde", "winamaxfr"
-]
+BOOKMAKERS_DESIRES = ["betclic", "betsson", "unibet", "winamaxfr"]
 
 BASE_URL = "https://api.the-odds-api.com/v4/sports/{sport}/odds"
 
