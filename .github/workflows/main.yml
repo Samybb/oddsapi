@@ -1,0 +1,18 @@
+name: Run code every hour
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # toutes les heures à xx:00
+  workflow_dispatch:      # permet aussi de le lancer manuellement
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run my script
+        run: |
+          python oddsapi.py
