@@ -89,6 +89,20 @@ def calculate_surebets(best_odds_dict):
                 rows.append([match] + values)
     return rows
 
+def send_telegram_message(message, bot_token, chat_id):
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": message,
+        "parse_mode": "HTML"
+    }
+    try:
+        response = requests.post(url, data=payload)
+        if response.status_code != 200:
+            print(f"Erreur Telegram: {response.text}")
+    except Exception as e:
+        print(f"Exception Telegram: {e}")
+
 all_rows = []
 
 print("Début du traitement...")
@@ -134,18 +148,3 @@ df = pd.DataFrame(all_rows, columns=[
     "Cote 2", "Bookmaker 2",
     "Inverse total"
 ])
-
-def send_telegram_message(message, bot_token, chat_id):
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    payload = {
-        "chat_id": chat_id,
-        "text": message,
-        "parse_mode": "HTML"
-    }
-    try:
-        response = requests.post(url, data=payload)
-        if response.status_code != 200:
-            print(f"Erreur Telegram: {response.text}")
-    except Exception as e:
-        print(f"Exception Telegram: {e}")
-
