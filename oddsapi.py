@@ -125,20 +125,20 @@ for ligue, sport_key in SPORTS.items():
         message = f"🎯 <b>Surebets détectés !</b>\n\n"
         message += f"🏆 Compétition : <b>{ligue}</b>\n\n"  # Ajout du nom de la ligue
 
-    for row in surebet_rows:
-        match, cote1, book1, coteN, bookN, cote2, book2, inv_total = row
-        message += (
-            f"⚽ <b>{match}</b>\n"
-            f"1️⃣ {cote1} (@{book1})\n"
-            f"➖ {coteN} (@{bookN})\n"
-            f"2️⃣ {cote2} (@{book2})\n"
-            f"🧮 Inverse total : <b>{inv_total}</b>\n"
-            f"--------------------------------------\n"
-        )
+        for row in surebet_rows:
+            match, cote1, book1, coteN, bookN, cote2, book2, inv_total = row
+            message += (
+                f"⚽ <b>{match}</b>\n"
+                f"1️⃣ {cote1} (@{book1})\n"
+                f"➖ {coteN} (@{bookN})\n"
+                f"2️⃣ {cote2} (@{book2})\n"
+                f"🧮 Inverse total : <b>{inv_total}</b>\n"
+                f"--------------------------------------\n"
+            )
 
-    send_telegram_message(message, BOT_TOKEN, CHAT_ID)
+        send_telegram_message(message, BOT_TOKEN, CHAT_ID)
 
-    all_rows.extend(surebet_rows)
+        all_rows.extend(surebet_rows)
 
 # Enregistrement
 df = pd.DataFrame(all_rows, columns=[
