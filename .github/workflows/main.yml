@@ -2,7 +2,7 @@ name: Run code every hour
 
 on:
   schedule:
-    - cron: '0 * * * *'  # toutes les heures à xx:00
+    #- cron: '0 * * * *'  # toutes les heures à xx:00
   workflow_dispatch:      # permet aussi de le lancer manuellement
 
 jobs:
