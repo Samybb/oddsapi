@@ -50,6 +50,13 @@ def get_odds_by_bookmaker(sport_key, bookmaker_key):
         if response.status_code != 200:
             print(f"Erreur {response.status_code} pour {bookmaker_key} sur {sport_key}")
             return []
+        
+        # Ajout : infos sur les crédits
+        used = response.headers.get("x-requests-used")
+        remaining = response.headers.get("x-requests-remaining")
+        last = response.headers.get("x-requests-last")
+        print(f"[{bookmaker_key.upper()}] Crédit utilisé: {last}, total: {used}, restant: {remaining}")
+        
         return response.json()
     except Exception as e:
         print(f"Erreur de requête pour {bookmaker_key}: {e}")
